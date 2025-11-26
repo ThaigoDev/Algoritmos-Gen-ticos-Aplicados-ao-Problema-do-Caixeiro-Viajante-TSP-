@@ -1,163 +1,117 @@
 
-# 🧬 Algoritmos Genéticos aplicados ao Problema do Caixeiro Viajante (TSP)
+# Algoritmo Genético — TSP (repos clone → Jupyter Web)
 
-Este repositório contém a implementação de um **Algoritmo Genético (AG)** para resolver o **Problema do Caixeiro Viajante (TSP)** utilizando instâncias no formato `.tsp`.
-O objetivo principal foi analisar como a **taxa de crossover** influencia na qualidade das soluções encontradas, realizando múltiplos experimentos seguindo o modelo **M×N**.
-
----
-
-## 📌 Objetivo do Projeto
-
-* Resolver o TSP utilizando Algoritmos Genéticos.
-* Testar diferentes valores da taxa de crossover (0 a 1).
-* Repetir cada teste N vezes para gerar resultados consistentes.
-* Gerar gráficos de evolução, boxplot e melhor rota encontrada.
+Repositório com a implementação do Algoritmo Genético para o Problema do Caixeiro Viajante (TSP).
+Fluxo de uso: **clonar → abrir Jupyter no navegador → abrir `experiment_AG.ipynb` → executar células**.
 
 ---
 
-## 🧪 Metodologia
-
-### 🧬 Funcionamento do Algoritmo Genético
-
-* Cada indivíduo representa uma rota (permutação das cidades).
-* População inicial gerada aleatoriamente.
-* Avaliação feita com base no custo total da rota.
-* Métodos de seleção: **torneio**, **roleta** e **elitismo**.
-* Operador de crossover: **OX (Order Crossover)**.
-* Mutação por troca (swap) entre duas posições.
-* Execução por várias gerações com possibilidade de elitismo.
-
-### 🔧 Parâmetros Utilizados
-
-| Parâmetro           | Valor                         |
-| ------------------- | ----------------------------- |
-| Gerações            | 200                           |
-| População           | 100 indivíduos                |
-| Taxa de mutação     | 0.3                           |
-| Taxa de crossover   | 0 a 1 (testado em 11 valores) |
-| Execuções por valor | 10                            |
-
----
-
-## 📊 Experimento M×N
-
-O experimento seguiu a estrutura:
-
-* **M = 11 valores diferentes** de taxa de crossover
-* **N = 10 execuções independentes**
-* Total de **110 execuções** do AG
-
-Os resultados incluem:
-
-✔ Boxplot comparativo
-✔ Evolução das melhores e piores execuções
-✔ Melhor rota encontrada (plot 2D)
-
----
-
-## 📁 Estrutura de Pastas Recomendada
+## Estrutura de pastas (do repositório)
 
 ```
-📦 TSP-Algoritmo-Genetico
-├── data/
-│   ├── ATT/
-│   └── EUC_2D/
-├── tsp/
-│   ├── reader.py
-│   └── distance.py
-├── genetic/
-│   ├── selection.py
-│   ├── crossover.py
-│   ├── mutation.py
-│   └── genetic_algorithm.py
-├── experiments/
-│   ├── runner.py
-│   └── analysis.py
-├── main.py
-├── requirements.txt
-└── README.md
+.
+├── data/                    # instâncias .tsp (EUC_2D, ATT, etc.)
+├── stc/                     # código e módulos usados (separados)
+├── results/                 # gráficos e arquivos gerados automaticamente
+├── report/                  # relatório e arquivos para entrega (PDF/DOCX)
+├── experiment_AG.ipynb      # notebook principal (abra no Jupyter)
+└── requirements.txt         # dependências (opcional)
 ```
+
+> Observação: todas as funções já estão no notebook ou na pasta `stc/` — não é necessário reorganizar nada após clonar.
 
 ---
 
-## ▶️ Como Executar
+## Como rodar (modo simples — Jupyter Web)
 
-### 1️⃣ Criar ambiente virtual
+1. Clone o repositório:
 
 ```bash
-python -m venv venv
+git clone <URL-do-seu-repo>
+cd <nome-do-repo>
 ```
 
-### 2️⃣ Ativar ambiente
-
-**Windows:**
+2. Abra o Jupyter Notebook (navegador web). A forma mais direta que funciona mesmo quando `jupyter` não está no PATH:
 
 ```bash
-venv\Scripts\activate
+python -m notebook
 ```
 
-**Linux/Mac:**
+ou
 
 ```bash
-source venv/bin/activate
+py -m notebook
 ```
 
-### 3️⃣ Instalar dependências
+Isso abre o Jupyter no navegador na pasta do repositório.
+
+3. No navegador, clique em:
+
+```
+experiment_AG.ipynb
+```
+
+e execute as células (Shift + Enter) na ordem. Use *Run → Run All Cells* para rodar tudo de uma vez.
+
+---
+
+## Dependências (opcionais)
+
+Se quiser instalar dependências antes de rodar (recomendado), execute:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install numpy pandas matplotlib
 ```
 
-### 4️⃣ Executar o projeto
+ou instale todas do `requirements.txt` (se existir):
 
 ```bash
-python main.py
+python -m pip install -r requirements.txt
 ```
 
----
-
-## 📉 Gráficos Gerados
-
-O código gera automaticamente:
-
-* **Boxplot dos resultados**
-* **Evolução do custo por geração**
-* **Melhor rota encontrada**
-
-Imagens podem ser salvas para uso em relatórios e apresentações.
+> Se o comando `pip` não for reconhecido, use sempre `python -m pip ...` ou `py -m pip ...`.
 
 ---
 
-## 📚 Tecnologias Utilizadas
+## Onde colocar / encontrar os arquivos
 
-* Python 3.8+
-* NumPy
-* Pandas
-* Matplotlib
-* Estrutura modular para evolução e leitura de dados
+* Coloque suas instâncias `.tsp` dentro de `data/` (já pode haver subpastas `EUC_2D/` e `ATT/`), por exemplo:
 
----
+  * `data/EUC_2D/berlin52.tsp`
+  * `data/ATT/att48.tsp`
 
-## 📝 Relatório
+* Resultados (gráficos, CSVs) serão gravados automaticamente em `results/`.
 
-O projeto acompanha:
+* Relatório final (doc/pdf) coloque em `report/`.
 
-* Explicação do AG
-* Descrição dos experimentos
-* Análise dos resultados
-* Gráficos ilustrativos
+* Código utilitário já está em `stc/` (separado para organização) — o notebook importa funções de lá.
 
 ---
 
-## 🤝 Contribuições
+## Observações úteis
 
-Pull requests são bem-vindos!
-Sinta-se à vontade para sugerir melhorias, novos operadores genéticos, ou comparações com outros métodos.
+* Use barras `/` ao informar caminhos no notebook (funciona no Windows e Linux): `data/ATT/att48.tsp`.
+* Se preferir, abra o notebook com `jupyter lab` (se instalado): `python -m jupyterlab`.
+* Se tiver erro de dependência dentro do Jupyter, rode numa célula:
+
+  ```python
+  !python -m pip install numpy pandas matplotlib
+  ```
 
 ---
 
-## ⭐ Se esse projeto ajudou você…
+## Execuções e resultados
 
-Considere deixar uma **estrela ⭐** no repositório. Isso ajuda muito!
+O notebook `experiment_AG.ipynb` já contém células para:
+
+* ler instâncias `.tsp` (EUC_2D / ATT) automaticamente,
+* rodar experimentos M×N (variação de parâmetro),
+* salvar DataFrame com resultados,
+* gerar e salvar gráficos (boxplot, evolução, melhor rota).
+
+Basta abrir e rodar as células.
+
+
+
 
 
